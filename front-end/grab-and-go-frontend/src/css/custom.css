@@ -1,0 +1,15 @@
+.custom-height-20 {
+    height: 20%;
+}
+
+.custom-height-60 {
+    height: 60%;
+}
+
+.custom-fixed-width-side {
+    width: 200px;
+}
+
+.custom-bg-color {
+    background-color: #a3a9af;
+}
