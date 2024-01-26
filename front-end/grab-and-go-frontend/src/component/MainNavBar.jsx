@@ -6,7 +6,7 @@ import { Stack } from 'react-bootstrap';
 
 function MainNavbar() {
     return (
-        <Navbar className="custom-bg-color vh-100 custom-fixed-width-side">
+        <Navbar className="vh-100" data-bs-theme="dark" bg="dark">
             <Stack gap={3} className="w-100 d-flex my-auto align-items-center">
                 <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
                 <Nav className="flex-column">

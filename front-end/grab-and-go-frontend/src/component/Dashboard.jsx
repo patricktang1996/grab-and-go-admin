@@ -5,7 +5,7 @@ function Dashboard() {
     return (
         <Container className="vh-100">
             {/* top：button */}
-            <Row className="custom-height-20">
+            <Row className="custom-height-10">
                 <Col className="d-flex justify-content-center align-items-center">
                     <div>
                         <Button variant="primary">button1</Button>
@@ -16,7 +16,7 @@ function Dashboard() {
             </Row>
 
             {/* medium：table */}
-            <Row className="custom-height-60">
+            <Row className="custom-height-80">
                 <Col>
                     <Table striped bordered hover>
                         <TestingTable />
@@ -25,7 +25,7 @@ function Dashboard() {
             </Row>
 
             {/* bottom：pagination */}
-            <Row className="custom-height-20">
+            <Row>
                 <Col className="d-flex justify-content-center align-items-center">
                     <Pagination>
                         <Pagination.First />

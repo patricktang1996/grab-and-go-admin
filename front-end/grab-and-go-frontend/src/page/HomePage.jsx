@@ -7,10 +7,10 @@ function HomePage() {
   return (
       <Container fluid>
           <Row>
-              <Col>
+              <Col md={2}>
                   <MainNavbar />
               </Col>
-              <Col md={9}>
+              <Col md={10}>
                   <Dashboard />
               </Col>
           </Row>
