@@ -1,0 +1,84 @@
+body {
+    font-family: Arial;
+}
+
+#topBox {
+    display: grid;
+	grid-template-columns: repeat(5, 1fr);
+    /* border: 1px solid blue; */
+}
+
+#pdfDiv {
+    width: 185mm;
+    height: 272mm;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10mm 10mm;
+}
+
+#grabGoImg {
+    margin-bottom: 5mm;
+    width: 60mm;
+}
+
+#addressBox {
+    height: 25mm;
+    width: 40mm;
+    margin-left: 80mm;
+}
+
+#addressBox p {
+    margin-top: 0.2mm;
+    margin-bottom: 0.2mm;
+    font-size: 9px;
+    font-family: Avenir;
+}
+
+#packingSlipBox {
+    margin-top: 5mm;
+    background-color: black;
+    color: white;
+    width: 180mm;
+    font-size: 26px;
+    padding: 0.5px 0.5px;
+}
+
+#packingSlipBox p {
+    margin-left: 4mm;
+}
+
+#dateBox {
+    font-size: 10px;
+}
+
+#productTable {
+    border-collapse: collapse;
+}
+
+#productTable tr td {
+    border: 1px solid lightgrey;
+    height: 8mm
+}
+
+#productTable tr td b {
+    margin-left: 1mm;
+}
+
+#productBox {
+    width: 117mm;
+    font-size: 16px;
+}
+
+#quantityBox {
+    width: 60mm;
+    font-size: 16px;
+}
+
+#customerDetailsBox {
+    font-size: 14px;
+}
+
+.title {
+    font-size: 16px;
+}
