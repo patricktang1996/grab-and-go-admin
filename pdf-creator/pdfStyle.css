@@ -31,7 +31,7 @@ body {
 #addressBox p {
     margin-top: 0.2mm;
     margin-bottom: 0.2mm;
-    font-size: 9px;
+    font-size: 10px;
     font-family: Avenir;
 }
 
@@ -80,5 +80,27 @@ body {
 }
 
 .title {
-    font-size: 16px;
+    font-size: 20px;
+    font-family: Arial;
+}
+
+.addressBox p {
+    margin-top: 2mm;
+    margin-bottom: 2mm;
+}
+
+.addressBox {
+    font-size: 15px;
+    font-family: Cambria;
+    min-width: 50mm;
+    
+}
+
+#shippingAddressBox {
+    margin-left: auto;
+    margin-right: 10mm;
+}
+
+#addressBoxBox {
+    display: flex;
 }
