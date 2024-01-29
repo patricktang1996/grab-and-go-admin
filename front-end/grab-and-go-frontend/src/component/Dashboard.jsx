@@ -1,7 +1,8 @@
 import { Container, Row, Col, Button, Table } from 'react-bootstrap';
 import TestingTable from "../table/TestingTable";
 import PaginationTool from "./PaginationTool";
-
+// import json file
+import ordersData from '../testing/testing-order-data.json';
 function Dashboard() {
     return (
         <Container className="vh-100">
@@ -19,7 +20,9 @@ function Dashboard() {
             <Row className="custom-height-80">
                 <Col>
                     <Table striped bordered hover>
-                        <TestingTable />
+                        <TestingTable
+                            ordersData={ordersData}
+                        />
                     </Table>
                 </Col>
             </Row>
