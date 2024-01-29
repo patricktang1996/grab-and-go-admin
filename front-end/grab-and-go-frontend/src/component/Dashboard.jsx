@@ -1,5 +1,6 @@
-import { Container, Row, Col, Button, Table, Pagination } from 'react-bootstrap';
+import { Container, Row, Col, Button, Table } from 'react-bootstrap';
 import TestingTable from "../table/TestingTable";
+import PaginationTool from "./PaginationTool";
 
 function Dashboard() {
     return (
@@ -10,7 +11,6 @@ function Dashboard() {
                     <div>
                         <Button variant="primary">button1</Button>
                         <Button variant="secondary" className="ms-2">button2</Button>
-                        {/* more button */}
                     </div>
                 </Col>
             </Row>
@@ -27,16 +27,7 @@ function Dashboard() {
             {/* bottom：pagination */}
             <Row>
                 <Col className="d-flex justify-content-center align-items-center">
-                    <Pagination>
-                        <Pagination.First />
-                        <Pagination.Prev />
-                        <Pagination.Item active>{1}</Pagination.Item>
-                        <Pagination.Item>{2}</Pagination.Item>
-                        <Pagination.Item>{3}</Pagination.Item>
-                        <Pagination.Ellipsis />
-                        <Pagination.Next />
-                        <Pagination.Last />
-                    </Pagination>
+                    <PaginationTool />
                 </Col>
             </Row>
         </Container>
