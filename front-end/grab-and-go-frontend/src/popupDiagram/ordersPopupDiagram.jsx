@@ -1,4 +1,4 @@
-function odersPopupDiagram() {
+function ordersPopupDiagram() {
     return (
         <div>
             <h1>odersPopupDiagram</h1>
@@ -6,4 +6,4 @@ function odersPopupDiagram() {
     )
 }
 
-export default odersPopupDiagram
+export default ordersPopupDiagram
