@@ -1,26 +1,44 @@
 import { Container, Row, Col, Button, Table } from 'react-bootstrap';
-import TestingTable from "../table/TestingTable";
 import PaginationTool from "./PaginationTool";
-// import json file
-import ordersData from '../testing/testing-order-data.json';
+
+import ordersData from '../testing/my_file.json';
+
 import {useEffect, useState} from "react";
+import TableCompany from "../table/TableCompany";
 function Dashboard() {
-    // ... pagination start
+    const itemsPerPage = 12;
     const [totalPages, setTotalPages] = useState(0);
-    function countPageTotalNumber() {
-        const totalNumber = ordersData.length;
-        const totalPage = Math.ceil(totalNumber / 12);
-        setTotalPages(totalPage);
-    }
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageContent, setPageContent] = useState([]);
+    const [entities, setEntities] = useState([]);
 
     useEffect(() => {
-        countPageTotalNumber();
+        // convert json object to array
+        const entitiesArray = Object.keys(ordersData).map(key => ({
+            ...ordersData[key],
+            entityName: key
+        }));
+        setEntities(entitiesArray);
     }, []);
 
     useEffect(() => {
+        setTotalPages(Math.ceil(entities.length / itemsPerPage));
+    }, [entities]);
+
+    useEffect(() => {
+        setPageContent(entities.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+    }, [currentPage, totalPages]);
+
+    useEffect(() => {
         console.log('totalPages: ', totalPages);
-    }, [totalPages]);
-    // ... pagination end ...
+        console.log('pageContent: ', pageContent);
+        console.log('entities: ', entities);
+    }, [pageContent, totalPages, entities]);
+
+    function handlePageChangeCallback(pageNumber) {
+        console.log('pageNumber: ', pageNumber);
+        setCurrentPage(pageNumber);
+    }
     return (
         <Container className="vh-100">
             {/* top：button */}
@@ -37,8 +55,10 @@ function Dashboard() {
             <Row className="custom-height-80">
                 <Col>
                     <Table striped bordered hover>
-                        <TestingTable
-                            ordersData={ordersData}
+                        <TableCompany
+                            ordersData={pageContent}
+                            currentPage={currentPage}
+                            itemsPerPage={itemsPerPage}
                         />
                     </Table>
                 </Col>
@@ -49,6 +69,7 @@ function Dashboard() {
                 <Col className="d-flex justify-content-center align-items-center">
                     <PaginationTool
                         totalPages={totalPages}
+                        onPageChange={handlePageChangeCallback}
                     />
                 </Col>
             </Row>
