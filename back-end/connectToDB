@@ -1,0 +1,64 @@
+//initalize JSON object string/s
+var date_Ordered;
+
+//connect to DB
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "grab_and_go"
+});
+
+//Start and check connection to database
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+
+    //test of query to databse to INSERT data
+    var sql = "INSERT INTO job_orders (job_number, date_ordered, company_name) VALUES ('Test_1','30/01/24','Company Inc')";
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+    });
+    //test of query to databse to RETRIEVE data
+    
+    con.query("SELECT date_ordered FROM job_orders WHERE job_number='Test_1';", function (err, result, fields) {
+        if (err) throw err;
+        console.log("result of select query: " + result);
+
+        // Process the results
+      for (const row of result) {
+      date_Ordered = row.date_ordered;
+      console.log(date_Ordered);
+    }
+    });
+    //test of query to delete data
+  //   var sql = "DELETE FROM job_orders WHERE company_name = 'Company Inc'";
+  //   con.query(sql, function (err, result) {
+  //   if (err) throw err;
+  //   console.log("Number of records deleted: " + result.affectedRows);
+  // });
+
+  //converting string into JSON data type?
+  //var JSONdataDate = JSON.parse(date_Ordered)
+
+  //packing slip JSON object created
+  packingSlip= {
+    "dateOrdered" : date_Ordered,
+  };
+  
+  //Accessing for particular detail 
+  // from object myOrder 
+  let i = packingSlip.dateOrdered; 
+
+  // It prints the detail of name 
+  // of the product 
+  console.log("printing test for JSON object")
+  console.log(i);
+
+    //close bracket for closing connection to databse
+  });
+
+  
