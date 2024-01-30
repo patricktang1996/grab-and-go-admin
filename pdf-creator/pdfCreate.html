@@ -8,6 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 </head>
 <body>
+    <button id="savePdf">Save to pdf</button>
+
     <div id="pdfDiv">
         <div id="topBox">
             <img src="images/grabAndGoIcon" id="grabGoImg">
@@ -51,7 +53,7 @@
 
             <tr>
                 <td>Grab and Go 4 in 1 Dynamo Torch</td>
-                <td></td>
+                <td>1</td>
             </tr>
 
             <tr>
@@ -73,7 +75,27 @@
             <p><b>Email</b> *****@*****.***</p>
             <p><b>Tel:</b> **-***-****</p>
         </div>
+
+        <div id="addressBoxBox">
+            <div id="billingAddressBox" class="addressBox">
+                <p class="title"><b>Billing Address</b></p>
+                <p>Mitre 10 Mega Upper Hutt</p>
+                <p>9 Park Street</p>
+                <p>Upper Hutt</p>
+                <p>ATT: Inward Goods</p>
+                <p>PH: **-***-****</p>
+            </div>
+
+            <div id="shippingAddressBox" class="addressBox">
+                <p class="title"><b>Shipping Address</b></p>
+                <p>Mitre 10 Mega Upper Hutt</p>
+                <p>9 Park Street</p>
+                <p>Upper Hutt</p>
+                <p>ATT: Inward Goods</p>
+                <p>PH: **-***-****</p>
+            </div>
+        </div>
     </div>
-    <button id="savePdf">Save to pdf</button>
+
     <script type="module" src="pdfCreator.js"></script>
 </body>
