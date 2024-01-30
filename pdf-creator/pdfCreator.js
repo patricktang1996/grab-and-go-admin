@@ -1,3 +1,5 @@
+// import jsPdf from 'jspdf';
+
 function generatePDF() {
 
     let pdfDiv = document.getElementById("pdfDiv");
