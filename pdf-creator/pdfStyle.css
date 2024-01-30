@@ -70,12 +70,12 @@ body {
 }
 
 #productBox {
-    width: 97mm;
+    width: 85mm;
     font-size: 16px;
 }
 
-#skewBox {
-    width: 35mm;
+#skuBox {
+    width: 22mm;
     font-size: 16px;
 }
 
@@ -84,7 +84,12 @@ body {
     font-size: 16px;
 }
 
-#priceBox {
+#individualPriceBox {
+    width: 25mm;
+    font-size: 16px;
+}
+
+#totalPriceBox {
     width: 25mm;
     font-size: 16px;
 }
