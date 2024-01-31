@@ -96,7 +96,7 @@ function connectToDatabase() {
   }
   
   // Usage of the functions with async/await
-  async function main() {
+  async function main(app) {
     try {
       const con = await connectToDatabase();
       const contactsList = await fetchContacts(con);
@@ -118,10 +118,10 @@ function connectToDatabase() {
   }
   
   // Run the main function
-  main();
+  // main(app);
   router.post("/", async(req, res) => {
     console.log("test before");
-    main();
+    main(app);
     console.log("test after");
   });
   module.exports = router;
