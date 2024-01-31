@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import ordersData from '../testing/testing-order-data.json';
 
-function TestingTable() {
+function TestingTable(props) {
     return (
         <Table striped bordered hover>
             <thead>
@@ -14,7 +14,7 @@ function TestingTable() {
             </tr>
             </thead>
             <tbody>
-            {ordersData.map((order, index) => (
+            {props.ordersData.map((order, index) => (
                 <tr key={index}>
                     <td>{order.orderNumber}</td>
                     <td>{order.customerName}</td>

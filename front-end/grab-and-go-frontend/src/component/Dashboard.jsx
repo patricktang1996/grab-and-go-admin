@@ -1,8 +1,26 @@
 import { Container, Row, Col, Button, Table } from 'react-bootstrap';
 import TestingTable from "../table/TestingTable";
 import PaginationTool from "./PaginationTool";
-
+// import json file
+import ordersData from '../testing/testing-order-data.json';
+import {useEffect, useState} from "react";
 function Dashboard() {
+    // ... pagination start
+    const [totalPages, setTotalPages] = useState(0);
+    function countPageTotalNumber() {
+        const totalNumber = ordersData.length;
+        const totalPage = Math.ceil(totalNumber / 12);
+        setTotalPages(totalPage);
+    }
+
+    useEffect(() => {
+        countPageTotalNumber();
+    }, []);
+
+    useEffect(() => {
+        console.log('totalPages: ', totalPages);
+    }, [totalPages]);
+    // ... pagination end ...
     return (
         <Container className="vh-100">
             {/* top：button */}
@@ -19,7 +37,9 @@ function Dashboard() {
             <Row className="custom-height-80">
                 <Col>
                     <Table striped bordered hover>
-                        <TestingTable />
+                        <TestingTable
+                            ordersData={ordersData}
+                        />
                     </Table>
                 </Col>
             </Row>
@@ -27,7 +47,9 @@ function Dashboard() {
             {/* bottom：pagination */}
             <Row>
                 <Col className="d-flex justify-content-center align-items-center">
-                    <PaginationTool />
+                    <PaginationTool
+                        totalPages={totalPages}
+                    />
                 </Col>
             </Row>
         </Container>
