@@ -69,6 +69,27 @@ function connectToDatabase() {
       resolve(contactsArray);
     });
   }
+  function respondJsonRequestForAllContacts(contactArrayJSON){
+    const express = require('express');
+    const app = express();
+    const PORT = 3000;
+
+    // Define a route for handling GET requests
+    app.get('/getAllContacts', (req, res) => {
+
+      // data for testing response method
+      const responseData = { message: 'Data from the backend!' };
+
+      // Send the data as JSON in the response
+      res.json(responseData);
+      //res.json(contactArrayJSON);
+    });
+
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  }
   
   // Usage of the functions with async/await
   async function main() {
@@ -76,12 +97,13 @@ function connectToDatabase() {
       const con = await connectToDatabase();
       const contactsList = await fetchContacts(con);
       const contactArrayJSON = await createJSONObject(contactsList);
+      respondJsonRequestForAllContacts(contactArrayJSON);
+
   
       // It prints the detail
       for (const contact of contactArrayJSON){
         console.log(contact.name);
       }
-  
       // Close the database connection
       con.end();
     } catch (error) {

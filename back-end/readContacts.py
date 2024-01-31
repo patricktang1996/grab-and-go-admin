@@ -12,7 +12,8 @@ cursor = mydb.cursor()
 cursor.execute("SHOW TABLES")
 
 #define filepath
-csv_Capsule_Contacts = 'back-end\\Contacts.txt'
+# csv_Capsule_Contacts = 'back-end\\Contacts.txt'
+csv_Capsule_Contacts = 'Contacts.txt'
 def readCapsuleCSV():
     with open(csv_Capsule_Contacts, 'r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -21,6 +22,7 @@ def readCapsuleCSV():
     #   Phone Number, Address Street, Tags, Website, 
         count = 1
         for contact in csv_reader:
+            print("test")
             ID = count
             count +=1
             Type = contact['Type']
@@ -46,10 +48,12 @@ def readCapsuleCSV():
             values = (ID, Name, Organisation, Type, BillingAddress, ShippingAddress, Email, Tags, Website, PhoneNumber,\
                     PriceCategory, DeliveryInstructions, pays_freight, DateCreated, DateUpdated)
             cursor.execute(query, values)
-            # mydb.commit()
+            mydb.commit()
 
 ### Uncomment when ready to upload
-# readCapsuleCSV() 
+# must instal this (input in terminal): pip install mysql-connector-python
+readCapsuleCSV() 
+
             
 cursor.close()
 mydb.close()
