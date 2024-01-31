@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
 import CompanyDetailsPop from "../popupDiagram/CompanyDetailsPop";
 
-function TableCompany({ ordersData, currentPage, itemsPerPage}) {
+function TableContacts({ ordersData, currentPage, itemsPerPage}) {
     const [showModal, setShowModal] = useState(false);
+    const [isShowPdfPopup, setIsShowPdfPopup] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState(null);
 
     const handleRowClick = (detail) => {
@@ -14,6 +15,10 @@ function TableCompany({ ordersData, currentPage, itemsPerPage}) {
     const handleClose = () => {
         setShowModal(false);
     };
+
+    const handleGeneratePDF = () => {
+        setShowModal(false);
+    }
 
     return (
         <>
@@ -30,7 +35,7 @@ function TableCompany({ ordersData, currentPage, itemsPerPage}) {
                 <tbody>
                 {Object.entries(ordersData).map(([key, value], index) => (
                     <tr  key={index} onClick={() => handleRowClick(value)}>
-                        <td>{index + (currentPage - 1) * itemsPerPage}</td>
+                        <td>{index + (currentPage - 1) * itemsPerPage + 1}</td>
                         <td>{value.ID}</td>
                         <td>{value.Name}</td>
                         <td>{value.Type}</td>
@@ -50,6 +55,9 @@ function TableCompany({ ordersData, currentPage, itemsPerPage}) {
                     {selectedDetail && <CompanyDetailsPop details={selectedDetail} />}
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Generate PDF
+                    </Button>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
@@ -59,4 +67,4 @@ function TableCompany({ ordersData, currentPage, itemsPerPage}) {
     );
 }
 
-export default TableCompany;
+export default TableContacts;

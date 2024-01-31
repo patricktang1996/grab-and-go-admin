@@ -1,8 +1,11 @@
+import '../css/detailsPop.css';
 function CompanyDetailsPop({ details }) {
     return (
-        <div>
+        <div className="detailPop-list-coantainer">
             {Object.entries(details).map(([key, value], index) => (
-                <p key={index}><strong>{key}:</strong> {value}</p>
+                <div key={index} className="detailPop-list-box">
+                    <p><strong>{key}:</strong> {value}</p>
+                </div>
             ))}
         </div>
     );
