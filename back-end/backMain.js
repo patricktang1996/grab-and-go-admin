@@ -1,3 +1,6 @@
+const express = require("express");
+const router = express.Router();
+
 // Function to connect to the database
 function connectToDatabase() {
     return new Promise((resolve, reject) => {
@@ -69,24 +72,25 @@ function connectToDatabase() {
       resolve(contactsArray);
     });
   }
-  function respondJsonRequestForAllContacts(contactArrayJSON){
-    const express = require('express');
-    const app = express();
-    const PORT = 3000;
+  function respondJsonRequestForAllContacts(contactArrayJSON, app){
+    
 
     // Define a route for handling GET requests
     app.get('/getAllContacts', (req, res) => {
+      const {request} = req.body;
+      console.log(req.body);
+      if (request == "get all contacts") {
+        // data for testing response method
+        const responseData = { message: 'Data from the backend!' };
 
-      // data for testing response method
-      const responseData = { message: 'Data from the backend!' };
-
-      // Send the data as JSON in the response
-      res.json(responseData);
-      //res.json(contactArrayJSON);
+        // Send the data as JSON in the response
+        // res.json(responseData);
+        res.json(contactArrayJSON);
+      } 
     });
 
     // Start the server
-    app.listen(PORT, () => {
+    app.listen(PORT, (app) => {
       console.log(`Server is running on port ${PORT}`);
     });
   }
@@ -97,7 +101,9 @@ function connectToDatabase() {
       const con = await connectToDatabase();
       const contactsList = await fetchContacts(con);
       const contactArrayJSON = await createJSONObject(contactsList);
-      respondJsonRequestForAllContacts(contactArrayJSON);
+      
+
+      respondJsonRequestForAllContacts(contactArrayJSON, app);
 
   
       // It prints the detail
@@ -113,3 +119,9 @@ function connectToDatabase() {
   
   // Run the main function
   main();
+  router.post("/", async(req, res) => {
+    console.log("test before");
+    main();
+    console.log("test after");
+  });
+  module.exports = router;
