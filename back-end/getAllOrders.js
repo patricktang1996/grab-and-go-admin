@@ -11,7 +11,7 @@ const db = mysql.createConnection({
 
 //Responds to specific GET request
 router.get('/', (req, res) =>{
-    const sql = 'SELECT * FROM orders_table';
+    const sql = 'SELECT * FROM orders';
     db.query(sql, (err, results) => {
         if (err) throw err;
         res.json(results);
