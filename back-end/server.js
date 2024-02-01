@@ -38,7 +38,7 @@ app.use('/api/getAllProducts', products)
 
 //if request received for '/getAllOrderDetails, execute file getAllOrderDetails.js
 const orderDetails = require('./getAllOrderDetails'); 
-app.use('/api/getAllProducts', orderDetails)
+app.use('/api/getAllOrderDetails', orderDetails)
 
 app.use(bodyParser.json());
 // app.use("/getAllContacts", main);
