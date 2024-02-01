@@ -20,11 +20,25 @@ db.connect((err) => {
 
 // const main = require("./backMain.js");
 
-//If request received for '/getAllContacts, execute file contacts.js
+//If request received for '/getAllContacts, execute file getAllContacts.js
 const contacts = require('./getAllContacts'); //require('file name')
 app.use('/api/getAllContacts', contacts) //use ('API msg pass')
 
+//if request received for '/getAllOrders, execute file getAllOrders.js
+const orders = require('./getAllOrders'); 
+app.use('/api/getAllOrders', orders) 
 
+//if request received for '/getAllPrices, execute file getAllPrices.js
+const prices = require('./getAllPrices'); 
+app.use('/api/getAllPrices', prices) 
+
+//if request received for '/getAllProducts, execute file getAllProducts.js
+const products = require('./getAllProducts'); 
+app.use('/api/getAllProducts', products)
+
+//if request received for '/getAllOrderDetails, execute file getAllOrderDetails.js
+const orderDetails = require('./getAllOrderDetails'); 
+app.use('/api/getAllProducts', orderDetails)
 
 app.use(bodyParser.json());
 // app.use("/getAllContacts", main);
