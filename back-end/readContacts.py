@@ -8,12 +8,11 @@ mydb = mysql.connector.connect(
     database = "grab_and_go"
 )
 print(mydb)
-cursor = mydb.cursor()
+cursor = mydb.cursor(buffered=True)
 cursor.execute("SHOW TABLES")
 
 #define filepath
-# csv_Capsule_Contacts = 'back-end\\Contacts.txt'
-csv_Capsule_Contacts = 'Contacts.txt'
+csv_Capsule_Contacts = 'grab-and-go-admin\\back-end\\Contacts.txt'
 def readCapsuleCSV():
     with open(csv_Capsule_Contacts, 'r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -22,7 +21,6 @@ def readCapsuleCSV():
     #   Phone Number, Address Street, Tags, Website, 
         count = 1
         for contact in csv_reader:
-            print("test")
             ID = count
             count +=1
             Type = contact['Type']
