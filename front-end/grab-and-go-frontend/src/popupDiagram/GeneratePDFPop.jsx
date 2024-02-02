@@ -1,8 +1,21 @@
+import html2pdf from 'html2pdf.js';
+import React, {useRef} from "react";
+
 function GeneratePDFPop() {
+    const pdfRef = useRef();
+
+    const exportPDF = () => {
+        html2pdf().from(pdfRef.current).set({
+            margin: 1,
+            filename: 'document.pdf',
+            html2canvas: { scale: 2 },
+            jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true }
+        }).save();
+    };
     return (
         <div className="generatePDFContainer">
-            <button id="savePdf">Save to pdf</button>
-            <div id="pdfDiv">
+            <button id="savePdf" onClick={exportPDF}>Save to pdf</button>
+            <div id="pdfDiv" ref={pdfRef}>
                 <div id="topBox">
                     <img src="image/grabAndGoIcon" id="grabGoImg"/>
                     <div id="addressBox">

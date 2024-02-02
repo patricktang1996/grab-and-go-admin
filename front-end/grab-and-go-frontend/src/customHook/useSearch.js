@@ -9,16 +9,15 @@ const useSearch = (localAllConcat, initialCategory) => {
         const timeoutId = setTimeout(() => {
             let fieldToSearch;
             if (searchCategory === 'None') {
-                fieldToSearch = 'Name'; // 当类别为 'None' 时，按照 'Name' 字段搜索
+                fieldToSearch = 'Name'; // when category is 'None' ，use 'Name' to search
             } else if (searchCategory === 'Contact Person') {
-                fieldToSearch = 'Name'; // 其他具体类别的处理
+                fieldToSearch = 'Name'; // otherwise use the category to search
             } else {
                 fieldToSearch = searchCategory;
             }
-
             const filteredEntities = searchTerm
                 ? localAllConcat.filter(item => {
-                    // 当类别不是 'None' 时，检查 item.Type 是否匹配
+                    // when category is not 'None' ，check item.Type is matching or not
                     if (searchCategory !== 'None') {
                         if (searchCategory === 'Contact Person' && item.Type !== 'Person') {
                             return false;
@@ -32,7 +31,6 @@ const useSearch = (localAllConcat, initialCategory) => {
                 : localAllConcat;
             setFilteredData(filteredEntities);
         }, 300);
-
         return () => clearTimeout(timeoutId);
     }, [searchTerm, searchCategory, localAllConcat]);
 
