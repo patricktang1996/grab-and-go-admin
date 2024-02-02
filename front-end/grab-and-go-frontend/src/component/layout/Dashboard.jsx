@@ -1,6 +1,5 @@
 import {Container, Row, Col, Button, Table, Dropdown} from 'react-bootstrap';
 import PaginationTool from "../PaginationTool";
-
 import localAllConcat from '../../testing/local_test_file.json';
 
 import {useEffect, useState} from "react";

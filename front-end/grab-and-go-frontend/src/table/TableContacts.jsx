@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
 import CompanyDetailsPop from "../popupDiagram/CompanyDetailsPop";
+import GeneratePDFPop from "../popupDiagram/GeneratePDFPop";
+
 
 function TableContacts({ ordersData, currentPage, itemsPerPage}) {
     const [showModal, setShowModal] = useState(false);
@@ -17,8 +19,10 @@ function TableContacts({ ordersData, currentPage, itemsPerPage}) {
     };
 
     const handleGeneratePDF = () => {
+        const pdfGenerationUrl = "/generate-pdf";
+        window.open(pdfGenerationUrl, '_blank');
         setShowModal(false);
-    }
+    };
 
     return (
         <>
@@ -55,7 +59,7 @@ function TableContacts({ ordersData, currentPage, itemsPerPage}) {
                     {selectedDetail && <CompanyDetailsPop details={selectedDetail} />}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleGeneratePDF}>
                         Generate PDF
                     </Button>
                     <Button variant="secondary" onClick={handleClose}>
