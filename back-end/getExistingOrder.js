@@ -10,7 +10,17 @@ const db = mysql.createConnection({
 });
 
 //Responds to specific GET request
-router.get('/', (req, res) =>{
+router.get('/', express.json(), (req, res) => {
+    // Assuming the request body is in JSON format
+    const orderData = req.body;
+
+    //check if   job_numberFromFront  is in order database?
+    const job_numberFromFront = orderData.job_number
+
+    // Now you can use the 'job_number' in your logic
+    const job_number = orderData.job_number;
+
+  
     const sql = 'SELECT `orders`.`purchase_order`, `orders`.`date`, `orders`.`freight_cost`, ' +
     '`customer_contact_information`.`organisation_name`, `customer_contact_information`.`billing_address`, ' +
     '`customer_contact_information`.`shipping_address`, `customer_contact_information`.`email`, `customer_contact_information`.`phone_number` ' +
@@ -20,6 +30,9 @@ router.get('/', (req, res) =>{
         if (err) throw err;
         res.json(results);
     })
+
+    // Send back the packing slip or a response as needed
+//     res.status(200).json({ job_number: 'Job number is '+job_number }
 });
 
 module.exports = router;
