@@ -40,6 +40,14 @@ app.use('/api/getAllProducts', products);
 const orderDetails = require('./getAllOrderDetails'); 
 app.use('/api/getAllOrderDetails', orderDetails)
 
+//if request received for '/getExistingOrder, execute file getAllOrderDetails.js
+const existingOrders = require('./getExistingOrder'); 
+app.use('/api/getExistingOrder', existingOrders)
+
+//if request received for '/getExistingOrderProduct, execute file getAllOrderDetails.js
+const existingOrderProduct = require('./getExistingOrderProduct'); 
+app.use('/api/getExistingOrderProduct', existingOrderProduct)
+
 app.use(bodyParser.json());
 // app.use("/getAllContacts", main);
 
