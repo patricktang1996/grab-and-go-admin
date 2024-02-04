@@ -40,6 +40,10 @@ app.use('/api/getAllProducts', products)
 const orderDetails = require('./getAllOrderDetails'); 
 app.use('/api/getAllOrderDetails', orderDetails)
 
+//request received to generate packing slip from existing order
+const existingOrder = require('./getExistingOrder');
+app.use('/api/getExistingOrder', existingOrder)
+
 app.use(bodyParser.json());
 // app.use("/getAllContacts", main);
 
