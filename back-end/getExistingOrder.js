@@ -9,6 +9,7 @@ const db = mysql.createConnection({
     database: "grab_and_go"
 });
 
+//Responds to specific GET request
 router.get('/', express.json(), (req, res) => {
     // Assuming the request body is in JSON format
     const orderData = req.body;
@@ -19,10 +20,19 @@ router.get('/', express.json(), (req, res) => {
     // Now you can use the 'job_number' in your logic
     const job_number = orderData.job_number;
 
+  
+    const sql = 'SELECT `orders`.`purchase_order`, `orders`.`date`, `orders`.`freight_cost`, ' +
+    '`customer_contact_information`.`organisation_name`, `customer_contact_information`.`billing_address`, ' +
+    '`customer_contact_information`.`shipping_address`, `customer_contact_information`.`email`, `customer_contact_information`.`phone_number` ' +
+    'FROM orders, customer_contact_information WHERE orders.job_number = ? AND customer_contact_information.id = orders.customer_id;';
 
+    db.query(sql, [job_number, job_number], (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    })
 
     // Send back the packing slip or a response as needed
-    res.status(200).json({ job_number: 'Job number is '+job_number });
+//     res.status(200).json({ job_number: 'Job number is '+job_number }
 });
 
 module.exports = router;

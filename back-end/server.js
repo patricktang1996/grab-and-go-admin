@@ -22,19 +22,19 @@ db.connect((err) => {
 
 //If request received for '/getAllContacts, execute file getAllContacts.js
 const contacts = require('./getAllContacts'); //require('file name')
-app.use('/api/getAllContacts', contacts) //use ('API msg pass')
+app.use('/api/getAllContacts', contacts); //use ('API msg pass')
 
 //if request received for '/getAllOrders, execute file getAllOrders.js
 const orders = require('./getAllOrders'); 
-app.use('/api/getAllOrders', orders) 
+app.use('/api/getAllOrders', orders);
 
 //if request received for '/getAllPrices, execute file getAllPrices.js
 const prices = require('./getAllPrices'); 
-app.use('/api/getAllPrices', prices) 
+app.use('/api/getAllPrices', prices);
 
 //if request received for '/getAllProducts, execute file getAllProducts.js
 const products = require('./getAllProducts'); 
-app.use('/api/getAllProducts', products)
+app.use('/api/getAllProducts', products);
 
 //if request received for '/getAllOrderDetails, execute file getAllOrderDetails.js
 const orderDetails = require('./getAllOrderDetails'); 
@@ -44,9 +44,14 @@ app.use('/api/getAllOrderDetails', orderDetails)
 const existingOrder = require('./getExistingOrder');
 app.use('/api/getExistingOrder', existingOrder)
 
+//if request received for '/getExistingOrderProduct, execute file getAllOrderDetails.js
+const existingOrderProduct = require('./getExistingOrderProduct'); 
+app.use('/api/getExistingOrderProduct', existingOrderProduct)
+
+
 app.use(bodyParser.json());
 // app.use("/getAllContacts", main);
 
-app.listen(PORT, (app) => {
-    console.log("pls work");
-})
+app.listen(PORT, () => {
+    console.log("Server initialised");
+});
