@@ -28,11 +28,18 @@ router.get('/', express.json(), (req, res) => {
 
     db.query(sql, [job_number, job_number], (err, results) => {
         if (err) throw err;
-        res.json(results);
+
+        // send results if there are any
+        if (results.length > 0) {
+            res.json(results);
+        } // send an error message if there aren't
+        else {
+            res.status(200).json({ status: 'No Job with this Job Number' });
+        }
     })
 
     // Send back the packing slip or a response as needed
-//     res.status(200).json({ job_number: 'Job number is '+job_number }
+    // res.status(200).json({ job_number: 'Job number is '+job_number }
 });
 
 module.exports = router;
