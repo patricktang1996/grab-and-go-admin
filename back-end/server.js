@@ -48,6 +48,9 @@ app.use('/api/getExistingOrder', existingOrder)
 const existingOrderProduct = require('./getExistingOrderProduct'); 
 app.use('/api/getExistingOrderProduct', existingOrderProduct)
 
+//if request received for '/searchCompanyOrders, execute file searchCompanyOrders.js
+const companyOrders = require('./searchCompanyOrders'); 
+app.use('/api/searchCompanyOrders', companyOrders)
 
 app.use(bodyParser.json());
 // app.use("/getAllContacts", main);
