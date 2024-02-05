@@ -1,0 +1,6 @@
+.detailPop-list-coantainer {
+    width: 100%;
+    height: 70vh;
+    padding: 10px;
+    overflow: scroll;
+}
