@@ -1,11 +1,9 @@
-// import jsPdf from 'jspdf';
-
 function generatePDF() {
 
     let pdfDiv = document.getElementById("pdfDiv");
 
     let options = {
-        margin:1, 
+        margin:1,
         filename: "test.pdf",
         image: {type: "vector", quality: 0.98},
         html2canvas: { scale: 2 },
@@ -16,4 +14,3 @@ function generatePDF() {
 }
 
 document.getElementById("savePdf")?.addEventListener("click", function() { generatePDF() });
-console.log("js loaded");
