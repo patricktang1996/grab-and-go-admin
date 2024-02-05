@@ -1,0 +1,29 @@
+All of the csv files need to be placed in the same folder as the python importers.
+
+##Products.csv
+
+#products.csv is an edited copy of the csv file of the orders google sheet.
+
+It should contain two rows. The top row is the name of all of the products. The second row is the sku of the products.
+Note that the sku can be left blank.
+
+NOTE: The name of the products in this file will be the name that is stored in the database. This is used in the other importers, so make sure that it matches the other files.
+NOTE: All of the special products should also be listed in this file.
+
+Any columns without a product name should be deleted.
+Any other rows should be deleted.
+
+
+###Pricings.csv
+
+#pricings.csv is an edited copy of the csv file of the pricings google sheet.
+
+It's top row should be the products.
+NOTE: the products need to be the exact same name as in products.csv.
+The following rows should be the pricing for each company.
+
+Its left-most columns should be the name of the company who the pricing is for. 
+NOTE: these names need to be the exact same as it is listed in the customer info. This is case-sensitive and empty spaces count.
+The other columns should be the pricings of the products.
+
+Any other columns or rows should be deleted.
