@@ -14,9 +14,6 @@ router.get('/', express.json(), (req, res) => {
     // Assuming the request body is in JSON format
     const orderData = req.body;
 
-    //check if   job_numberFromFront  is in order database?
-    const job_numberFromFront = orderData.job_number
-
     // Now you can use the 'job_number' in your logic
     const job_number = orderData.job_number;
 
@@ -26,7 +23,7 @@ router.get('/', express.json(), (req, res) => {
     '`customer_contact_information`.`shipping_address`, `customer_contact_information`.`email`, `customer_contact_information`.`phone_number` ' +
     'FROM orders, customer_contact_information WHERE orders.job_number = ? AND customer_contact_information.id = orders.customer_id;';
 
-    db.query(sql, [job_number, job_number], (err, results) => {
+    db.query(sql, [job_number], (err, results) => {
         if (err) throw err;
 
         // send results if there are any

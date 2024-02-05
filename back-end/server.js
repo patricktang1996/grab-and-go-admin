@@ -44,9 +44,13 @@ app.use('/api/getAllOrderDetails', orderDetails)
 const existingOrder = require('./getExistingOrder');
 app.use('/api/getExistingOrder', existingOrder)
 
-//if request received for '/getExistingOrderProduct, execute file getAllOrderDetails.js
+//if request received for '/getExistingOrderProduct, execute file getExistingOrderProduct.js
 const existingOrderProduct = require('./getExistingOrderProduct'); 
 app.use('/api/getExistingOrderProduct', existingOrderProduct)
+
+//if request received for '/addNewOrder, execute file addNewOrder.js
+const addNewOrder = require('./addNewOrder'); 
+app.use('/api/addNewOrder', addNewOrder)
 
 
 app.use(bodyParser.json());
