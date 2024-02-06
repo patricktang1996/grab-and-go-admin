@@ -1,5 +1,5 @@
 import '../css/detailsPop.css';
-function CompanyDetailsPop({ details }) {
+function DetailsPop({ details }) {
     return (
         <div className="detailPop-list-coantainer">
             {Object.entries(details).map(([key, value], index) => (
@@ -10,4 +10,4 @@ function CompanyDetailsPop({ details }) {
         </div>
     );
 }
-export default CompanyDetailsPop;
+export default DetailsPop;

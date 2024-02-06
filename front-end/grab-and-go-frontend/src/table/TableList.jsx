@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
-import CompanyDetailsPop from "../popupDiagram/CompanyDetailsPop";
+import DetailsPop from "../popupDiagram/DetailsPop";
 import GeneratePDFPop from "../popupDiagram/GeneratePDFPop";
+import PDFEditForm from "../popupDiagram/PDFEditForm";
 
 
-function TableContacts({ ordersData, currentPage, itemsPerPage}) {
+function TableList({ ordersData, currentPage, itemsPerPage}) {
     const [showModal, setShowModal] = useState(false);
     const [isShowPdfPopup, setIsShowPdfPopup] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState(null);
@@ -19,9 +20,9 @@ function TableContacts({ ordersData, currentPage, itemsPerPage}) {
     };
 
     const handleGeneratePDF = () => {
-        const pdfGenerationUrl = "/generate-pdf";
-        window.open(pdfGenerationUrl, '_blank');
+
         setShowModal(false);
+        setIsShowPdfPopup(true);
     };
 
     return (
@@ -56,7 +57,7 @@ function TableContacts({ ordersData, currentPage, itemsPerPage}) {
                     <Modal.Title>Details</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {selectedDetail && <CompanyDetailsPop details={selectedDetail} />}
+                    {selectedDetail && <DetailsPop details={selectedDetail} />}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleGeneratePDF}>
@@ -67,8 +68,15 @@ function TableContacts({ ordersData, currentPage, itemsPerPage}) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+            {isShowPdfPopup && (
+                <PDFEditForm
+                    selectedDetail={selectedDetail}
+                    setIsShowPdfPopup={setIsShowPdfPopup}
+                />
+            )}
         </>
     );
 }
 
-export default TableContacts;
+export default TableList;

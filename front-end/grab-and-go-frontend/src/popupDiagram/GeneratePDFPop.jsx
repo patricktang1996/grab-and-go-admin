@@ -1,8 +1,30 @@
+import React, { useEffect, useRef, useState } from 'react';
 import html2pdf from 'html2pdf.js';
-import React, {useRef} from "react";
 
 function GeneratePDFPop() {
     const pdfRef = useRef();
+    const [details, setDetails] = useState({});
+    const [splitAddress, setSplitAddress] = useState([]);
+
+    useEffect(() => {
+        const storedDetails = localStorage.getItem('pdfDetails');
+        if (storedDetails) {
+            setDetails(JSON.parse(storedDetails));
+            localStorage.removeItem('pdfDetails');
+        }
+    }, []);
+    useEffect(() => {
+        console.log('details:', details)
+    }, [details]);
+
+    useEffect(() => {
+        if (details && details['Address Street']) {
+            const address = details['Address Street'];
+            const addressParts = address.split(",");
+            setSplitAddress(addressParts);
+        }
+    }, [details]);
+
 
     const exportPDF = () => {
         html2pdf().from(pdfRef.current).set({
@@ -14,7 +36,7 @@ function GeneratePDFPop() {
     };
     return (
         <div className="generatePDFContainer">
-            <button id="savePdf" onClick={exportPDF}>Save to pdf</button>
+            <button id="savePdf-button" onClick={exportPDF}>Save to pdf</button>
             <div id="pdfDiv" ref={pdfRef}>
                 <div id="topBox">
                     <img src="image/grabAndGoIcon" id="grabGoImg"/>
@@ -35,7 +57,7 @@ function GeneratePDFPop() {
                 <br/>
 
                 <div id="dateBox">
-                    <p><b><span id="date">5th October 2023</span></b></p>
+                    <p><b><span id="date">{details.Created}</span></b></p>
                 </div>
 
                 <br/>
@@ -98,28 +120,24 @@ function GeneratePDFPop() {
 
                 <div id="customerDetailsBox">
                     <p className="title"><b>Customer Details:</b></p>
-                    <p><b>Order No</b> <span>R-******</span></p>
-                    <p><b>Email</b> <span>*****@*****.***</span></p>
-                    <p><b>Tel:</b> <span>**-***-****</span></p>
+                    <p><b>Order No：</b> <span>R-******</span></p>
+                    <p><b>Email：</b> <span>{details.Email}</span></p>
+                    <p><b>Tel:</b> <span>{details['Phone Number']}</span></p>
                 </div>
 
                 <div id="addressBoxBox">
                     <div id="billingAddressBox" className="addressBox">
                         <p className="title"><b>Billing Address</b></p>
-                        <p><span>Mitre 10 Mega Upper Hutt</span></p>
-                        <p><span id="billingAddress">9 Park Street</span></p>
-                        <p><span id="billingCity">Upper Hutt</span></p>
-                        <p><span id="billingInfo">ATT: Inward Goods</span></p>
-                        <p><span id="billingPhoneNumber">PH: **-***-****</span></p>
+                        {splitAddress.map((part, index) => (
+                            <p key={index}><span>{part.trim()}</span></p>
+                        ))}
                     </div>
 
                     <div id="shippingAddressBox" className="addressBox">
                         <p className="title"><b>Shipping Address</b></p>
-                        <p><span>Mitre 10 Mega Upper Hutt</span></p>
-                        <p><span id="shippingAddress">9 Park Street</span></p>
-                        <p><span id="shippingCity">Upper Hutt</span></p>
-                        <p><span id="shippingInfo">ATT: Inward Goods</span></p>
-                        <p><span id="shippingPhoneNumber">PH: **-***-****</span></p>
+                        {splitAddress.map((part, index) => (
+                            <p key={index}><span>{part.trim()}</span></p>
+                        ))}
                     </div>
                 </div>
             </div>

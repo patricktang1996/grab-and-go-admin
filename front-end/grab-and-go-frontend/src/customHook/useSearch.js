@@ -4,20 +4,24 @@ const useSearch = (localAllConcat, initialCategory) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchCategory, setSearchCategory] = useState(initialCategory);
     const [filteredData, setFilteredData] = useState(localAllConcat);
-
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            let fieldToSearch;
-            if (searchCategory === 'None') {
-                fieldToSearch = 'Name'; // when category is 'None' ，use 'Name' to search
-            } else if (searchCategory === 'Contact Person') {
-                fieldToSearch = 'Name'; // otherwise use the category to search
-            } else {
-                fieldToSearch = searchCategory;
+            let filteredEntities;
+            let fieldToSearch = 'Name';
+            if (searchCategory === 'Contact Person') {
+                fieldToSearch = 'Name';
+            } else if (searchCategory === 'Organisation') {
+                fieldToSearch = 'Organisation';
             }
-            const filteredEntities = searchTerm
-                ? localAllConcat.filter(item => {
-                    // when category is not 'None' ，check item.Type is matching or not
+            if (!searchTerm) {
+                filteredEntities = localAllConcat;
+            } else {
+                filteredEntities = localAllConcat.filter(item => {
+                    if (searchCategory === 'None') {
+                        if (item.Organisation.startsWith(searchTerm)) {
+                            return true;
+                        }
+                    }
                     if (searchCategory !== 'None') {
                         if (searchCategory === 'Contact Person' && item.Type !== 'Person') {
                             return false;
@@ -25,12 +29,16 @@ const useSearch = (localAllConcat, initialCategory) => {
                             return false;
                         }
                     }
-                    const valueToCheck = item[fieldToSearch] ? item[fieldToSearch].toLowerCase() : '';
+                    let valueToCheck = '';
+                    if (item[fieldToSearch]) {
+                        valueToCheck = item[fieldToSearch].toLowerCase();
+                    }
                     return valueToCheck.includes(searchTerm.toLowerCase());
-                })
-                : localAllConcat;
+                });
+            }
             setFilteredData(filteredEntities);
-        }, 300);
+        }, 200);
+
         return () => clearTimeout(timeoutId);
     }, [searchTerm, searchCategory, localAllConcat]);
 
@@ -44,3 +52,4 @@ const useSearch = (localAllConcat, initialCategory) => {
 };
 
 export default useSearch;
+
