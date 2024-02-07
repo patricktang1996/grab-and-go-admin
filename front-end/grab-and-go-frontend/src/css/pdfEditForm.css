@@ -1,0 +1,132 @@
+.PDFEditForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 80vw;
+    height: 70vh;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.pdf-form-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.pdf-form-button-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.pdf-form-content-box {
+    flex: 10;
+    overflow: scroll;
+}
+
+
+.pdf-form-content-box {
+    flex: 10;
+    overflow: scroll;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 10px;
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detail-key-value {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.detail-key {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.detail-display {
+    background-color: #e6f7ff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input-prefix {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.detail-input {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    flex-grow: 1;
+    transition: border-color 0.3s;
+}
+
+.detail-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+.pdf-form-button-box button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+.pdf-form-button-box button:first-child {
+    background-color: #007bff;
+    color: white;
+}
+
+.pdf-form-button-box button:last-child {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.pdf-form-button-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pdf-form-button-box button:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+.pdf-form-button-box button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}

@@ -8,17 +8,11 @@ function MainNavbar() {
     return (
         <Navbar className="vh-100" data-bs-theme="dark" bg="dark">
             <Stack gap={3} className="w-100 d-flex my-auto align-items-center">
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand href="#home">Grab&Go</Navbar.Brand>
                 <Nav className="flex-column">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#link">Link</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                    </NavDropdown>
+                    <Nav.Link href="contacts">Contacts</Nav.Link>
+                    <Nav.Link href="orders">Orders</Nav.Link>
+                    <Nav.Link href="prices">Prices</Nav.Link>
                 </Nav>
             </Stack>
         </Navbar>

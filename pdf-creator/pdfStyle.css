@@ -65,13 +65,32 @@ body {
     margin-left: 1mm;
 }
 
+#productTable tr td span {
+    margin-left: 1mm;
+}
+
 #productBox {
-    width: 117mm;
+    width: 85mm;
+    font-size: 16px;
+}
+
+#skuBox {
+    width: 22mm;
     font-size: 16px;
 }
 
 #quantityBox {
-    width: 60mm;
+    width: 20mm;
+    font-size: 16px;
+}
+
+#individualPriceBox {
+    width: 25mm;
+    font-size: 16px;
+}
+
+#totalPriceBox {
+    width: 25mm;
     font-size: 16px;
 }
 
@@ -93,7 +112,6 @@ body {
     font-size: 15px;
     font-family: Cambria;
     min-width: 50mm;
-    
 }
 
 #shippingAddressBox {
