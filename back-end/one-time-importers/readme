@@ -22,8 +22,10 @@ It's top row should be the products.
 NOTE: the products need to be the exact same name as in products.csv.
 The following rows should be the pricing for each company.
 
-Its left-most columns should be the name of the company who the pricing is for. 
-NOTE: these names need to be the exact same as it is listed in the customer info. This is case-sensitive and empty spaces count.
+Its left-most column should be the name of the company who the pricing is for.
+NOTE: any special pricings for a company should not be 
+The second to left-most column should be empty if the company does not pay 
+
 The other columns should be the pricings of the products.
 
 Any other columns or rows should be deleted.

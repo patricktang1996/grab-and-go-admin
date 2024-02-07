@@ -11,21 +11,25 @@ def get_products():
         pricings = []
         for row in reader:
             if row_num == 0:
-                id = 0
+                col_num = 0
                 for entry in row:
                     if len(entry) > 0:
-                        products.append(product(id, entry))
-                    id += 1
+                        # id is just used for the col num
+                        products.append(product(col_num, entry))
+                    col_num += 1
                 row_num += 1
             else:
-                id = 0
+                col_num = 0
                 company_name = ""
                 for entry in row:
-                    if id == 0:
-                        company_name = entry
+                    if col_num == 0:
+                        category_name = entry
+                    elif col_num == 1:
+                        if (len(entry) == 0):
+                            pays_freight
                     elif len(entry) > 0:
                         pricings.append(product_pricing(entry, company_name))
-                    id += 1
+                    col_num += 1
                 row_num += 1
     return pricings
 
