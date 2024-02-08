@@ -7,7 +7,7 @@ from product import product
 class PricingCategory:
     def __init__(self, category_name, pays_freight, pricings):
         self.category_name = category_name
-        self.pays_freight =pays_freight
+        self.pays_freight = pays_freight
         self.pricings = pricings
 
 
@@ -57,17 +57,36 @@ def get_connection():
 
 def get_product_id(pricing, cursor, database):
     query = "SELECT id FROM `products` WHERE name=%s"
-    values = (pricing.product)
+    values = (pricing.product,)
+    # print(query % values)
     cursor.execute(query, values)
     # error in the above few lines
-    print(cursor.fetchall()[0])
+    return cursor.fetchone()[0]
 
 
+def insert_pricing_categories(pricing_categories, cursor, database):
+    cursor.execute("SELECT MAX(id) FROM `pricing_category`")
+    results = cursor.fetchone()
+    try:
+        category_id = results[0] + 1
+    except:
+        category_id = 0
 
-def insert_pricing_categories(pricings, cursor, database):
+    for category in pricing_categories:
+        query = f"INSERT INTO `pricing_category` (`id`, `name`, `pays_freight`) VALUES (%s, %s, %s);"
+        values = (category_id, category.category_name, category.pays_freight)
+        print(len(category.category_name))
+        cursor.execute(query, values)
+
+        database.commit()
+        insert_pricings(category.pricings, category_id, cursor, database)
+        category_id += 1
+
+
+def insert_pricings(pricings, category_id, cursor, database):
     for pricing in pricings:
-        query = f"INSERT INTO `products` (`id`, `name`, `skew`) VALUES (%s, %s, %s);"
-        values = (product.id, product.name, product.skew)
+        query = f"INSERT INTO `pricing_details` (`category_id`, `product_id`, `price`) VALUES (%s, %s, %s);"
+        values = (category_id, get_product_id(pricing, cursor, database), pricing.price)
         cursor.execute(query, values)
         database.commit()
 
@@ -75,13 +94,7 @@ if __name__ == "__main__":
     database, cursor = get_connection()
 
     pricing_categories = get_pricing_categories()
-    for category in pricing_categories:
-        print(f"{category.category_name}: pays_freight = {category.pays_freight}")
-        for pricing in category.pricings:
-            print(f"{pricing.product}: ${pricing.price}")
-            get_product_id(pricing, cursor, database)
-
-    # insert_products(products, cursor, database)
+    insert_pricing_categories(pricing_categories, cursor, database)
 
     database.close()
     cursor.close()
