@@ -4,12 +4,31 @@ import DashboardContacts from "../component/layout/DashboardContacts";
 import DashboardOrders from "../component/layout/DashboardOrders";
 import DashboardPrices from "../component/layout/DashboardPrices";
 import React, { useEffect } from "react";
-import {fetchAllContacts} from "../utility/fetchFromBackend";
+import {
+    fetchAddNewOrder,
+    fetchAllContacts,
+    fetchAllOrders,
+    fetchAllPriceCategories,
+    fetchAllPrices, fetchAllProducts,
+    fetchAllTags, fetchExistingOrder, fetchExistingOrderProduct, fetchSearchCompanyOrders
+} from "../utility/fetchFromBackend";
 import {Routes, Route} from "react-router-dom";
 function HomePage() {
 
     useEffect(() => {
-        fetchAllContacts();
+        const fetchAllData = async () => {
+            await fetchAllContacts();
+            await fetchAllOrders();
+            await fetchAllTags();
+            await fetchAllPrices();
+            await fetchAllPriceCategories();
+            await fetchAllProducts();
+            // await fetchExistingOrder();
+            // await fetchExistingOrderProduct();
+            // await fetchSearchCompanyOrders();
+            // await fetchAddNewOrder();
+        }
+        fetchAllData();
     }, []);
 
     return (
