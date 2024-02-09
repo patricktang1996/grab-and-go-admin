@@ -24,6 +24,10 @@ db.connect((err) => {
 const contacts = require('./getAllContacts'); //require('file name')
 app.use('/api/getAllContacts', contacts); //use ('API msg pass')
 
+//if request received for '/getAllTags, execute file getAllOrders.js
+const tags = require('./getAllTags'); 
+app.use('/api/getAllTags', tags);
+
 //if request received for '/getAllOrders, execute file getAllOrders.js
 const orders = require('./getAllOrders'); 
 app.use('/api/getAllOrders', orders);
@@ -31,6 +35,10 @@ app.use('/api/getAllOrders', orders);
 //if request received for '/getAllPrices, execute file getAllPrices.js
 const prices = require('./getAllPrices'); 
 app.use('/api/getAllPrices', prices);
+
+//if request received for '/getAllPriceCategories, execute file getAllPrices.js
+const priceCategories = require('./getAllPriceCategories'); 
+app.use('/api/getAllPriceCategories', priceCategories);
 
 //if request received for '/getAllProducts, execute file getAllProducts.js
 const products = require('./getAllProducts'); 
@@ -48,10 +56,13 @@ app.use('/api/getExistingOrder', existingOrder)
 const existingOrderProduct = require('./getExistingOrderProduct'); 
 app.use('/api/getExistingOrderProduct', existingOrderProduct)
 
+//if request received for '/searchCompanyOrders, execute file searchCompanyOrders.js
+const companyOrders = require('./searchCompanyOrders'); 
+app.use('/api/searchCompanyOrders', companyOrders)
+
 //if request received for '/addNewOrder, execute file addNewOrder.js
 const addNewOrder = require('./addNewOrder'); 
 app.use('/api/addNewOrder', addNewOrder)
-
 
 app.use(bodyParser.json());
 // app.use("/getAllContacts", main);
