@@ -31,3 +31,13 @@ NOTE: the top row of these two columns should be left blank
 The other columns should be the pricings of the products.
 
 Any other columns or rows should be deleted.
+
+###readOrders.py
+
+#Orders23-34 is an edited copy of the csv file of the orders google sheet.
+
+Csv files of orders must be edited in the following way to run the file and have it accurately read into the database.
+NOTE:'job number' must be added to the beginning of the file
+NOTE: the google sheet includes special characters which do not show up on the csv file and disrupt accurate reading of csv file data into the database.
+the first row of the csv file which inlcudes all google sheet row categories must be retyped to remove special character. 
+NOTE: row category titles must be changed to exactly match those in the database.
