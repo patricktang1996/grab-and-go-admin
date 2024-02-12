@@ -239,3 +239,6 @@ if __name__ == "__main__":
     random_pricing(database, cursor)
     random_orders(database, cursor)
     random_tags(database, cursor)
+    
+    database.close()
+    cursor.close()
