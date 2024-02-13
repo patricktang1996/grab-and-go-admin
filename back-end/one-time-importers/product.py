@@ -1,5 +1,5 @@
 class product:
-    def __init__(self, id, name, skew=""):
+    def __init__(self, id, name, sku=""):
         self.id = id
         self.name = name
-        self.skew = skew
+        self.sku = sku

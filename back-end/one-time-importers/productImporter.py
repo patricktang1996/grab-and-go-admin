@@ -17,7 +17,7 @@ def get_products():
             elif row_num == 1:
                 id = 0
                 for entry in row:
-                    products[id].skew=entry
+                    products[id].sku=entry
                     id += 1
                 row_num += 1
             else:
@@ -31,15 +31,15 @@ def get_connection():
 
 def insert_products(products, cursor, database):
     for product in products:
-        query = f"INSERT INTO `products` (`id`, `name`, `skew`) VALUES (%s, %s, %s);"
-        values = (product.id, product.name, product.skew)
+        query = f"INSERT INTO `products` (`id`, `name`, `sku`) VALUES (%s, %s, %s);"
+        values = (product.id, product.name, product.sku)
         cursor.execute(query, values)
         database.commit()
 
 if __name__ == "__main__":
     products = get_products()
     for product in products:
-        print(f"INSERT INTO `products` (`id`, `name`, `skew`) VALUES ({product.id}, \"{product.name}\", \"{product.skew}\");")
+        print(f"INSERT INTO `products` (`id`, `name`, `sku`) VALUES ({product.id}, \"{product.name}\", \"{product.sku}\");")
 
     database, cursor = get_connection()
     insert_products(products, cursor, database)
