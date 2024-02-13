@@ -7,33 +7,46 @@ const useSearch = (localAllConcat, initialCategory) => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             let filteredEntities;
-            let fieldToSearch = 'Name';
+            let fieldToSearch = 'name';
+            if (searchCategory === 'Job Number') {
+                fieldToSearch = 'job_number';
+            }
             if (searchCategory === 'Contact Person') {
-                fieldToSearch = 'Name';
+                fieldToSearch = 'name';
             } else if (searchCategory === 'Organisation') {
-                fieldToSearch = 'Organisation';
+                fieldToSearch = 'organisation_name';
             }
             if (!searchTerm) {
                 filteredEntities = localAllConcat;
             } else {
                 filteredEntities = localAllConcat.filter(item => {
-                    if (searchCategory === 'None') {
-                        if (item.Organisation.startsWith(searchTerm)) {
+                    if (searchCategory === 'Job Number') {
+                        if (String(item.job_number).startsWith(searchTerm)) {
                             return true;
                         }
                     }
-                    if (searchCategory !== 'None') {
-                        if (searchCategory === 'Contact Person' && item.Type !== 'Person') {
-                            return false;
-                        } else if (searchCategory === 'Organisation' && item.Type !== 'Organisation') {
-                            return false;
+                    if (searchCategory === 'None') {
+                        if (item.name.startsWith(searchTerm)) {
+                            return true;
+                        }
+                    }
+                    if (searchCategory === 'Organisation') {
+                        if (item.organisation_name.startsWith(searchTerm)) {
+                            return true;
+                        }
+                    }
+                    if (searchCategory === 'Contact Person') {
+                        if (item.name.startsWith(searchTerm)) {
+                            return true;
                         }
                     }
                     let valueToCheck = '';
-                    if (item[fieldToSearch]) {
+                    if (item[fieldToSearch] && searchCategory !== 'Job Number') {
                         valueToCheck = item[fieldToSearch].toLowerCase();
                     }
-                    return valueToCheck.includes(searchTerm.toLowerCase());
+                    if (searchCategory !== 'Job Number') {
+                        return valueToCheck.includes(searchTerm.toLowerCase());
+                    }
                 });
             }
             setFilteredData(filteredEntities);

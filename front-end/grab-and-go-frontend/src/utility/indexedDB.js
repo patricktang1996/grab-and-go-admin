@@ -1,10 +1,20 @@
 import { openDB } from 'idb';
 
 export async function initDB() {
-    const db = await openDB('myAppDB', 1, {
-        upgrade(db) {
+    const dbName = 'myAppDB';
+    const version = 2; // Increment the version number when making structural changes
+    const db = await openDB(dbName, version, {
+        upgrade(db, oldVersion, newVersion, transaction) {
+            // Create 'contacts' object store if it doesn't exist
             if (!db.objectStoreNames.contains('contacts')) {
-                db.createObjectStore('contacts', { keyPath: 'ID' });
+                db.createObjectStore('contacts', { keyPath: 'id' });
+            }
+            // Create 'orders' object store if it doesn't exist
+            if (!db.objectStoreNames.contains('orders')) {
+                db.createObjectStore('orders', { keyPath: 'job_number' });
+            }
+            if (!db.objectStoreNames.contains('products')) {
+                db.createObjectStore('products', { keyPath: 'id' });
             }
         },
     });

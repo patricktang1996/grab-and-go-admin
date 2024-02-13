@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
 import DetailsPop from "../popupDiagram/DetailsPop";
-import GeneratePDFPop from "../popupDiagram/GeneratePDFPop";
-import PDFEditForm from "../popupDiagram/PDFEditForm";
 
-
-function TableList({ ordersData, currentPage, itemsPerPage}) {
+function TableContact({ ordersData, currentPage, itemsPerPage}) {
     const [showModal, setShowModal] = useState(false);
     const [isShowPdfPopup, setIsShowPdfPopup] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState(null);
@@ -19,32 +16,26 @@ function TableList({ ordersData, currentPage, itemsPerPage}) {
         setShowModal(false);
     };
 
-    const handleGeneratePDF = () => {
-
-        setShowModal(false);
-        setIsShowPdfPopup(true);
-    };
-
     return (
         <>
             <Table striped bordered hover>
                 <thead>
                 <tr>
-                    <th>Index</th>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Type</th>
-                    <th>Organisation</th>
+                    <th>Organisation_Name</th>
+                    <th>Email</th>
+                    <th>Shipping address</th>
                 </tr>
                 </thead>
                 <tbody>
                 {Object.entries(ordersData).map(([key, value], index) => (
-                    <tr  key={index} onClick={() => handleRowClick(value)}>
-                        <td>{index + (currentPage - 1) * itemsPerPage + 1}</td>
-                        <td>{value.ID}</td>
-                        <td>{value.Name}</td>
-                        <td>{value.Type}</td>
-                        <td>{value.Organisation}</td>
+                    <tr key={index} onClick={() => handleRowClick(value)}>
+                        <td>{value.id}</td>
+                        <td>{value.name}</td>
+                        <td>{value.organisation_name}</td>
+                        <td>{value.email}</td>
+                        <td>{value["shipping_address"]}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -60,23 +51,13 @@ function TableList({ ordersData, currentPage, itemsPerPage}) {
                     {selectedDetail && <DetailsPop details={selectedDetail} />}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleGeneratePDF}>
-                        Generate PDF
-                    </Button>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-            {isShowPdfPopup && (
-                <PDFEditForm
-                    selectedDetail={selectedDetail}
-                    setIsShowPdfPopup={setIsShowPdfPopup}
-                />
-            )}
         </>
     );
 }
 
-export default TableList;
+export default TableContact;

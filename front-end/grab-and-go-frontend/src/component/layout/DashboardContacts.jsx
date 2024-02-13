@@ -4,7 +4,7 @@ import localAllConcat from '../../testing/local_test_file.json';
 
 import {useEffect, useState} from "react";
 import useSearch from '../../customHook/useSearch';
-import TableList from "../../table/TableList";
+import TableContact from "../../table/TableContact";
 import { loadData, initDB } from '../../utility/indexedDB';
 
 
@@ -12,22 +12,22 @@ function DashboardContacts() {
     const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(1);
     const [pageContent, setPageContent] = useState([]);
-    const [idbData, setIdbData] = useState(localAllConcat); //use local data for testing
-    // const [idbData, setIdbData] = useState([]); //use fetch data from back-end for testing
+    // const [idbData, setIdbData] = useState(localAllConcat); //use local data for testing
+    const [idbData, setIdbData] = useState([]); //use fetch data from back-end for testing
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const db = await initDB();
-    //             const loadedData = await loadData(db, 'contacts');
-    //             setIdbData(loadedData);
-    //         } catch (error) {
-    //             console.error('Failed to load data from IndexedDB:', error);
-    //         }
-    //     };
-    //
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const db = await initDB();
+                const loadedData = await loadData(db, 'contacts');
+                setIdbData(loadedData);
+            } catch (error) {
+                console.error('Failed to load data from IndexedDB:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const {searchTerm, setSearchTerm, searchCategory, setSearchCategory, filteredData} = useSearch(idbData, 'None');
 
@@ -76,7 +76,7 @@ function DashboardContacts() {
             {/* Table */}
             <Row className="custom-height-80">
                 <Col>
-                    <TableList
+                    <TableContact
                         ordersData={pageContent}
                         currentPage={currentPage}
                         itemsPerPage={itemsPerPage}

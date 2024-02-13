@@ -12,7 +12,6 @@ function MainNavbar() {
                 <Nav className="flex-column">
                     <Nav.Link href="contacts">Contacts</Nav.Link>
                     <Nav.Link href="orders">Orders</Nav.Link>
-                    <Nav.Link href="prices">Prices</Nav.Link>
                 </Nav>
             </Stack>
         </Navbar>

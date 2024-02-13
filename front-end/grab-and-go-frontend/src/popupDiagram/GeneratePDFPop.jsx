@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import html2pdf from 'html2pdf.js';
+import {openDB} from "idb";
 
 function GeneratePDFPop() {
     const pdfRef = useRef();
     const [details, setDetails] = useState({});
     const [splitAddress, setSplitAddress] = useState([]);
+    const [specificCustomer, setSpecificCustomer] = useState([]);
+    const [productDetails, setProductDetails] = useState({});
+
 
     useEffect(() => {
         const storedDetails = localStorage.getItem('pdfDetails');
@@ -18,13 +22,99 @@ function GeneratePDFPop() {
     }, [details]);
 
     useEffect(() => {
-        if (details && details['Address Street']) {
-            const address = details['Address Street'];
-            const addressParts = address.split(",");
-            setSplitAddress(addressParts);
+        if (specificCustomer && specificCustomer['shipping_address']) {
+            const address = specificCustomer['shipping_address'];
+            // console.log('address:', address)
+            if (!address) {
+
+            } else {
+                if (!address.includes(",")) {
+                    setSplitAddress([address]);
+                } else {
+                    const addressParts = address.split(",");
+                    setSplitAddress(addressParts)
+                }
+            }
+        }
+    }, [specificCustomer]);
+
+    async function fetchCustomerData(customerID) {
+        if (!('indexedDB' in window)) {
+            console.error('This browser doesn\'t support IndexedDB');
+            return;
+        }
+        // Open the database (using idb library for simplicity)
+        const db = await openDB('myAppDB', 2); // Ensure version matches your DB version
+        const tx = db.transaction('contacts', 'readonly');
+        const store = tx.objectStore('contacts');
+        const customerData = await store.get(customerID);
+        await tx.done;
+        db.close();
+        return customerData;
+    }
+    async function fetchProductData(productID) {
+        try {
+            const db = await openDB('myAppDB', 2);
+            const tx = db.transaction('products', 'readonly');
+            const store = tx.objectStore('products');
+            const productData = await store.get(productID);
+            await tx.done;
+            db.close();
+            if (!productData) {
+                console.error(`No product found for ID: ${productID}`);
+                return null;
+            }
+            return productData;
+        } catch (error) {
+            console.error('Failed to fetch product data:', error);
+            return null;
+        }
+    }
+
+
+
+    useEffect(() => {
+        const customerID = details['customer_id'];
+        // console.log('customerID:', customerID)
+        if (customerID) {
+            fetchCustomerData(customerID)
+                .then(customerData => {
+                    if (customerData) {
+                        setSpecificCustomer(customerData);
+                    } else {
+                        console.log('No customer data found for ID:', customerID);
+                    }
+                })
+                .catch(error => console.error('Failed to fetch customer data:', error));
+        }
+    }, [details]);
+    useEffect(() => {console.log("specificCustomer", specificCustomer)}, [specificCustomer]);
+
+    useEffect(() => {
+        if (Array.isArray(details.products) && details.products.length > 0) {
+            const fetchAllProductDetails = async () => {
+                const fetchedProductDetails = {};
+                for (const product of details.products) {
+                    // console.log("product", product)
+                    let ID = product["product_id"]
+                    let id = Number(ID)
+                    // console.log("ID", ID)
+                    const productData = await fetchProductData(id);
+                    // console.log("productData", productData)
+                    if (productData) {
+                        fetchedProductDetails[product["product_id"]] = productData;
+                    }
+                }
+                setProductDetails(fetchedProductDetails);
+            };
+
+            fetchAllProductDetails();
         }
     }, [details]);
 
+    useEffect(() => {
+        console.log("productDetails", productDetails)
+    }, [productDetails]);
 
     const exportPDF = () => {
         html2pdf().from(pdfRef.current).set({
@@ -51,7 +141,7 @@ function GeneratePDFPop() {
                 </div>
 
                 <div id="packingSlipBox">
-                    <p>PACKING SLIP: <span id="jobNumber">****</span></p>
+                    <p>PACKING SLIP: <span id="jobNumber">{details['job_number']}</span></p>
                 </div>
 
                 <br/>
@@ -73,56 +163,33 @@ function GeneratePDFPop() {
                     </tr>
                     </thead>
 
-                    <tbody>
-                    <tr>
-                        <td><span className="product">Grab and Go 1 Person Emergency bags</span></td>
-                        <td><span className="sku">2</span></td>
-                        <td><span className="quantity">2</span></td>
-                        <td><span className="individualPrice">2</span></td>
-                        <td><span className="totalPrice">lots</span></td>
-                    </tr>
-                    </tbody>
+                    {Array.isArray(details.products) && details.products.length > 0 ? (
+                        <tbody>
+                        {details.products.map((product, index) => {
+                            const productData = productDetails[product.product_id];
+                            return productData ? (
+                                <tr key={index}>
+                                    <td><span className="product">{productData.name}</span></td>
+                                    <td><span className="sku">{productData.sku}</span></td>
+                                    <td><span className="quantity">{product.quantity}</span></td>
+                                    <td><span className="individualPrice">{product.price}</span></td>
+                                    <td><span className="totalPrice">{product.price * product.quantity}</span></td>
+                                </tr>
+                            ) : null;
+                        })}
+                        </tbody>
+                    ) : (<div>{"No products found"}</div>)}
 
-                    <tbody>
-                    <tr>
-                        <td><span className="product">Grab and Go 4 Person Emergency bags</span></td>
-                        <td><span className="sku">3</span></td>
-                        <td><span className="quantity">3</span></td>
-                        <td><span className="individualPrice">3</span></td>
-                        <td><span className="totalPrice">lots</span></td>
-                        </tr>
-                    </tbody>
-
-
-                    <tbody>
-                    <tr>
-                        <td><span className="product">Grab and Go 4 in 1 Dynamo Torch</span></td>
-                        <td><span className="sku">1</span></td>
-                        <td><span className="quantity">1</span></td>
-                        <td><span className="individualPrice">1</span></td>
-                        <td><span className="totalPrice">lots</span></td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <td><span className="product">Grab and Go Watertight FAK Plus</span></td>
-                        <td><span className="sku">8</span></td>
-                        <td><span className="quantity">8</span></td>
-                        <td><span className="individualPrice">8</span></td>
-                        <td><span className="totalPrice">lots</span></td>
-                    </tr>
-                    </tbody>
 
                 </table>
 
                 <br/>
 
                 <div id="customerDetailsBox">
-                    <p className="title"><b>Customer Details:</b></p>
-                    <p><b>Order No：</b> <span>R-******</span></p>
-                    <p><b>Email：</b> <span>{details.Email}</span></p>
-                    <p><b>Tel:</b> <span>{details['Phone Number']}</span></p>
+                    <p className="title"><b>Customer Details: {specificCustomer.name}</b></p>
+                    <p><b>Order No：</b> <span>{details['purchase_order']}</span></p>
+                    <p><b>Email：</b> <span>{specificCustomer.email}</span></p>
+                    <p><b>Tel:</b> <span>{specificCustomer['phone_number']}</span></p>
                 </div>
 
                 <div id="addressBoxBox">

@@ -1,4 +1,4 @@
-import {clearData, initDB, saveData} from "./indexedDB";
+import {clearData, initDB, initOrderDB, saveData} from "./indexedDB";
 
 export const fetchAllContacts = async () => {
     try {
@@ -9,9 +9,9 @@ export const fetchAllContacts = async () => {
         }
         const data = await response.json();
         console.log("fetchAllContacts: ", data);
-        // const db = await initDB();
-        // await clearData(db, 'contacts');
-        // await saveData(db, 'contacts', data);
+        const db = await initDB();
+        await clearData(db, 'contacts');
+        await saveData(db, 'contacts', data);
     } catch (error) {
         console.error('Failed to fetch and save contacts:', error);
     }
@@ -26,9 +26,9 @@ export const fetchAllOrders = async () => {
         }
         const data = await response.json();
         console.log("fetchAllOrders: ", data);
-        // const db = await initDB();
-        // await clearData(db, 'contacts');
-        // await saveData(db, 'contacts', data);
+        const db = await initDB();
+        await clearData(db, 'orders');
+        await saveData(db, 'orders', data);
     } catch (error) {
         console.error('Failed to fetch and save contacts:', error);
     }
@@ -95,9 +95,9 @@ export const fetchAllProducts = async () => {
         }
         const data = await response.json();
         console.log("fetchAllProducts: ", data);
-        // const db = await initDB();
-        // await clearData(db, 'contacts');
-        // await saveData(db, 'contacts', data);
+        const db = await initDB();
+        await clearData(db, 'products');
+        await saveData(db, 'products', data);
     } catch (error) {
         console.error('Failed to fetch and save contacts:', error);
     }

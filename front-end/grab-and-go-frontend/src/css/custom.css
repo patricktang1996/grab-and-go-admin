@@ -10,3 +10,15 @@
     width: 200px;
     flex: 0 0 auto;
 }
+
+#custom-search-dropdown-basic {
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    background-color: #1d8252;
+}
